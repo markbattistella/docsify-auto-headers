@@ -4,15 +4,15 @@ Add the config:
 
 ```js
 <script>
-	window.$docsify = {
-		autoHeading: {
-			separator:	'decimal',
-			start:		'',
-			levels:		'6',
-			scope:		'main',
-			path:		'#/toc/section/'
-		}
-	}
+window.$docsify = {
+    autoHeading: {
+        separator: 'decimal',
+        start: '',
+        levels: '6',
+        scope: 'main',
+        path: '#/toc/section/'
+    }
+}
 </script>
 ```
 
