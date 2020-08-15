@@ -65,7 +65,7 @@ upset when she finds out I'm a reclusive wanker.
 ```
 
 ### Example output
-
+![Example output](example.jpg)
 
 # Contributing
 1. Clone the repo:
