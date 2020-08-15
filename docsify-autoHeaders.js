@@ -5,7 +5,6 @@ function getHeading( headingOptions ) {
 	// if it is empty
 	if(
 		!headingOptions.separator	||
-		// !headingOptions.start		||
 		!headingOptions.levels		||
 		!headingOptions.scope
 	) {
@@ -30,60 +29,95 @@ function getHeading( headingOptions ) {
 	}
 
 	// get othe settings
-	let start	= headingOptions.start	? headingOptions.start	: '';
 	let levels	= headingOptions.levels	? headingOptions.levels	: 6;
 	let scope	= headingOptions.scope	? headingOptions.scope	: null;
-	let path	= headingOptions.path	? headingOptions.path	: '';
 
-	var a = [ separator, start, levels, scope, path ];
+	var a = [ separator, levels, scope ];
 	return a;
 }
 
 // defaults - and setup
 const headingOptions = {
 	separator:	'',
-	start:		'',
 	levels:		'',
-	scope:		'',
-	path:		'#/',
+	scope:		''
 };
 
 
 // the function
 function autoHeading( hook, vm ) {
 
-	// magic here please
-	const headingOptionsArray = getHeading( headingOptions );
-
-	// get the path (but after the #)
-//	var hash = window.location.hash;
-//	var a= hash.replace( headingOptionsArray[4], '' );
-
-	var t = window.location.href,
-		headingStart = t.substring(t.lastIndexOf('/') + 1),
-		headingStart = headingStart.substr(0, headingStart.indexOf('-'));
-
-
-
 	// after the parse
-	hook.ready(function() {
+	hook.doneEach(function() {
 
-		headingStart = ( (headingOptionsArray[1] === '') ?
-								headingStart : headingOptionsArray[1] );
+		// get the variables from the cofig
+		const	headingOptionsArray = getHeading( headingOptions ),
+
+				// create them easier to read
+				aSeparator	= headingOptionsArray[0],
+				aLevel		= headingOptionsArray[1],
+				aScope		= headingOptionsArray[2];
+
+		//
+		// MARK: - set the scope of the autoHeading
+		//
 
 		// set the scope
-		var contentScope = document.getElementById( headingOptionsArray[3] );
+		const contentScope = document.getElementById( aScope );
 
 		// if the scope is empty
 		if( !contentScope ) {
 			return;
 		}
 
+		//
+		// MARK: - see if we're numbering from a custom number
+		//
+
+		// find the first `p` element in scope
+		const findFirstParagraph = contentScope.getElementsByTagName("P")[0].innerHTML;
+
+		// check if the element starts with the signifier
+		// `@section:`
+		const startsWith = findFirstParagraph.startsWith('@autoHeader:');
+
+		// if it starts with the signifer
+		if( startsWith ) {
+
+			// if its a success in finding the
+			// `@section:` then remove it from DOM
+			contentScope.getElementsByTagName("P")[0].remove();
+
+			// get the last text after the `:`
+			const sectionNumber = findFirstParagraph.substring(findFirstParagraph.lastIndexOf(':') + 1);
+			var validatedSectionNumber = '';
+
+			// if `e` is NaN or Not A Number
+			if( isNaN( sectionNumber ) ) {
+				return;
+			} else {
+
+				// it is a number at this point
+				// but is the number + / -
+				if( Math.sign( sectionNumber ) >= 0 && sectionNumber !== '') {
+
+					// round the output in case
+					validatedSectionNumber = Math.round( sectionNumber );
+				} else {
+					return;
+				}
+			}
+		} else {
+			// otherwise start it at 1
+			// because they did put the section in
+			validatedSectionNumber = 1;
+		}
+
 		// the array for heading numbers
-		var numbers = [ 0, (headingStart-1), 0, 0, 0, 0, 0 ];
+		var numbers = [ 0, (validatedSectionNumber-1), 0, 0, 0, 0, 0 ];
 
 		// get the tagNames
-		var elements = contentScope.getElementsByTagName('*');
+		const elements = contentScope.getElementsByTagName('*');
 
 		// loop through all the elements inside scope
 		for( var i in elements ) {
@@ -91,9 +125,10 @@ function autoHeading( hook, vm ) {
 			//
 			var e = elements[i];
 
-			var headingRegex = new RegExp("^H([1-" + headingOptionsArray[2] + "])$");
+			// limit the heading tag number in search
+			var headingRegex = new RegExp("^H([1-" + aLevel + "])$");
 
-			// does the element match a heading
+			// does the element match a heading regex
 			if( !e ||
 				!e.tagName ||
 				!e.tagName.match( headingRegex )
@@ -101,20 +136,23 @@ function autoHeading( hook, vm ) {
 				continue
 			}
 
-			var eLevel = RegExp.$1;
-			var txt = '';
+			var eLevel = RegExp.$1,
+				txt = '';
 
 			numbers[eLevel]++;
 
 			for( var l = 1; l <= 6; l++ ) {
 
 				if( l <= eLevel ) {
-					txt += numbers[l] + headingOptionsArray[0]
+					txt += numbers[l] + aSeparator
 				} else {
 					numbers[l] = 0;
 				}
 			}
-			e.textContent = txt + ' ' + e.textContent.replace(/^[0-9\.\s]+/,'' );
+
+			// add the number outside the heading
+			// keep the anchor links :)
+			e.innerHTML =  txt + ' ' + e.innerHTML.replace(/^[0-9\.\s]+/,'' );
 		}
 
 	});
