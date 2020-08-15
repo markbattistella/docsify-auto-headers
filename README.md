@@ -1,3 +1,7 @@
+<img style="width: 100%;" src="images/header.gif"/>
+
+---
+
 # Getting started
 
 ## Installation
@@ -65,7 +69,7 @@ upset when she finds out I'm a reclusive wanker.
 ```
 
 ### Example output
-![Example output](example.jpg)
+![Example output](images/example.jpg)
 
 # Contributing
 1. Clone the repo:
