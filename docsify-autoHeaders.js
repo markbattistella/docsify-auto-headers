@@ -45,7 +45,7 @@ const headingOptions = {
 
 
 // the function
-function autoHeading( hook, vm ) {
+function autoHeaders( hook, vm ) {
 
 	// after the parse
 	hook.doneEach(function() {
@@ -59,7 +59,7 @@ function autoHeading( hook, vm ) {
 				aScope		= headingOptionsArray[2];
 
 		//
-		// MARK: - set the scope of the autoHeading
+		// MARK: - set the scope of the autoHeaders
 		//
 
 		// set the scope
@@ -160,8 +160,8 @@ function autoHeading( hook, vm ) {
 
 
 // find heading plugin options
-window.$docsify.autoHeading = Object.assign(
+window.$docsify.autoHeaders = Object.assign(
 	headingOptions,
-	window.$docsify.autoHeading
+	window.$docsify.autoHeaders
 );
-window.$docsify.plugins = [].concat(autoHeading, window.$docsify.plugins);
+window.$docsify.plugins = [].concat(autoHeaders, window.$docsify.plugins);
