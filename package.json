@@ -1,6 +1,6 @@
 {
   "name": "mbdocsify-autoheaders",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Auto header numbering for the magical documentation generator docsify.js",
   "main": "docsify-autoHeaders.js",
   "scripts": {
