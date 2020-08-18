@@ -2,7 +2,7 @@
   "name": "mbdocsify-autoheaders",
   "version": "1.0.1",
   "description": "Auto header numbering for the magical documentation generator docsify.js",
-  "main": "docsify-autoHeaders.js",
+  "main": "docsify-autoHeaders.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
