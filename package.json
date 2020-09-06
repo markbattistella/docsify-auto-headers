@@ -1,5 +1,5 @@
 {
-  "name": "mbdocsify-autoheaders",
+  "name": "docsify-autoheaders",
   "version": "1.2.5",
   "description": "Auto header numbering for Docsify.js",
   "main": "docsify-autoHeaders.min.js",
