@@ -1,6 +1,6 @@
 {
   "name": "docsify-autoheaders",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Auto header numbering for Docsify.js",
   "main": "docsify-autoHeaders.min.js",
   "repository": {
@@ -12,21 +12,11 @@
   "bugs": {
     "url": "https://github.com/markbattistella/docsify-autoHeaders/issues"
   },
-  "publishConfig": {
-	  "registry": "https://npm.pkg.github.com/"
-  },
   "homepage": "https://github.com/markbattistella/docsify-autoHeaders#readme",
   "keywords": [
-    "auto",
-    "numbering",
-    "auto",
+    "auto numbering",
     "headings",
-    "heading",
-    "docsify",
     "docsify",
     "plugin"
-  ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  }
+  ]
 }
