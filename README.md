@@ -1,12 +1,12 @@
+![npm Publish](https://github.com/markbattistella/docsify-autoHeaders/workflows/npm%20Publish/badge.svg?event=registry_package)
+
+---
+
 <img style="width: 100%;" src="images/header.gif"/>
 
 ---
 
 # Getting started
-
-
-![npm Publish](https://github.com/markbattistella/docsify-autoHeaders/workflows/npm%20Publish/badge.svg?event=registry_package)
-
 
 ## Installation
 1. Configure the `docsify-autoHeaders`:
