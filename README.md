@@ -4,6 +4,10 @@
 
 # Getting started
 
+
+![npm Publish](https://github.com/markbattistella/docsify-autoHeaders/workflows/npm%20Publish/badge.svg?event=registry_package)
+
+
 ## Installation
 1. Configure the `docsify-autoHeaders`:
 ```js
