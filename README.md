@@ -1,15 +1,32 @@
-![npm Publish](https://github.com/markbattistella/docsify-autoHeaders/workflows/npm%20Publish/badge.svg?event=registry_package)
+# docsify-autoHeaders: Auto numbering body headings
 
----
+![npm Publish](https://github.com/markbattistella/docsify-autoHeaders/workflows/npm%20Publish/badge.svg?event=registry_package) ![npm (tag)](https://img.shields.io/npm/v/docsify-autoheaders/latest) ![GitHub](https://img.shields.io/github/license/markbattistella/docsify-autoheaders) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/docsify-autoheaders)
 
-<img style="width: 100%;" src="images/header.gif"/>
+This plugin is designed to create heading numbers in your pages if you are creating a reference guide. It stops you from having to manually number the items, and then have to then trawl through every heading afterwards to change the numbering system again. It allows you to either have all the headings in one page, or if you split them over many markdown documents then specify what the heading number it should be starting at.
 
----
+![How it works](images/header.gif)
 
-# Getting started
 
 ## Installation
-1. Configure the `docsify-autoHeaders`:
+
+### 1. Update `index.html` file
+Assuming you have a working [docsify](https://docsify.js.org/) app set up, it is easy to use the plugin.
+
+1. Add the following script tag to your `index.html` via either CDN or downloading it and using it locally:
+
+```html
+<!-- unpkg.com -->
+<script src="https://unpkg.com/docsify-autoheaders"></script>
+
+<!-- jsDelivr -->
+<script src="https://cdn.jsdelivr.net/npm/docsify-autoheaders"></script>
+
+<!-- locally -->
+<script src="docsify-autoheaders.js"></script>
+```
+
+1. In docsify setup configure the plugin:
+
 ```js
 <script>
 window.$docsify = {
@@ -22,22 +39,16 @@ window.$docsify = {
 </script>
 ```
 
-2. Insert script into docsify document:
-```js
-<script src="docsify-autoHeaders.js"></script>
-```
-
-## Configuration
 There are some options available for the `docsify-autoHeaders`:
 
 | setting   | options |
 | :-------- | :------ |
 | separator | how you'd like the numbers to be separated. `decimal`, `dash`, or `bracket`
 | levels    | heading levels to target `1-6`
-| scope     | the `ID` of the holding element. for Docsify this is normally `#main` but I guess if you have `html` inside the `.md` then you can tie it to that instead
+| scope     | the `ID` of the holding element. for docsify this is normally `#main` but I guess if you have `html` inside the `.md` then you can tie it to that instead
 
-## Usage
-At the top of your `md` files add the following snippet:
+### 2. Usage
+At the top of your file add the following snippet:
 
 ```md
 @autoHeader:
@@ -51,7 +62,10 @@ You can :heart: have a starting header at `0` using:
 @autoHeader:0
 ```
 
+
 ## Example
+
+### Input data in `file.md`
 ```md
 @autoHeader:34
 
@@ -72,38 +86,21 @@ the renaissance. I have to go along with all this
 upset when she finds out I'm a reclusive wanker.
 ```
 
-### Example output
+### Output data
 ![Example output](images/example.jpg)
 
-# Contributing
+
+## Contributing
 1. Clone the repo:
-```
-git clone https://github.com/markbattistella/docsify-autoHeadings.git
-```
+`git clone https://github.com/markbattistella/docsify-autoHeadings.git`
 
-2. Create your feature branch: git checkout -b my-feature
+2. Create your feature branch:
+`git checkout -b my-feature`
 
-3. Commit your changes: git commit -am 'Add some feature'
+3. Commit your changes:
+`git commit -am 'Add some feature'`
 
 4. `Push` to the branch:
-```
-git push origin my-new-feature
-```
+`git push origin my-new-feature`
 
-5. Submit a `pull` request
-
-
-# Roadmap
-- [ ] Allow custom separators
-- [ ] Allow the scope to be either a `class` or `ID`
-- [ ] Convert it to usable outside Docsify
-
----
-
-# Author: [@me](https://github.com/markbattistella)
-
-- 🔭 I’m currently working on some secret projects
-- 🌱 I’m learning
-- 📫 Reach me: [Twitter 🐦](https://twitter.com/markbattistella)
-
----
+5. Submit the `pull` request
