@@ -18,8 +18,6 @@ It stops you from having to manually number the heading, and then have to then t
 
 It allows you to either have all the headings in one page, or if you split them over many `markdown` documents then specify what the heading number it should be starting at.
 
-![How it works](demo/header.gif)
-
 ## Installation
 
 ### Update `index.html` file
