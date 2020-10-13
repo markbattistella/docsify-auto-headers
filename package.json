@@ -1,28 +1,25 @@
 {
-  "name": "docsify-autoheaders",
-  "version": "2.0.1",
-  "description": "Auto header numbering for docsify.js",
-  "main": "dist/docsify-autoHeaders.min.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/markbattistella/docsify-autoHeaders.git"
-  },
-  "author": "Mark Battistella",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/markbattistella/docsify-autoHeaders/issues"
-  },
-  "homepage": "https://github.com/markbattistella/docsify-autoHeaders#readme",
-  "keywords": [
-    "auto numbering",
-    "headings",
-    "docsify",
-    "plugin"
-  ],
-  "directories": {
-    "doc": "docs"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  }
+	"name": "docsify-autoheaders",
+	"version": "2.0.2",
+	"description": "Auto header numbering for docsify.js",
+	"main": "dist/docsify-autoHeaders.min.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/markbattistella/docsify-autoHeaders.git"
+	},
+	"author": "Mark Battistella",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/markbattistella/docsify-autoHeaders/issues"
+	},
+	"homepage": "https://github.com/markbattistella/docsify-autoHeaders#readme",
+	"keywords": [
+		"auto numbering",
+		"headings",
+		"docsify",
+		"plugin"
+	],
+	"directories": {
+		"doc": "docs"
+	}
 }
