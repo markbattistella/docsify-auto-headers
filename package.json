@@ -1,6 +1,6 @@
 {
 	"name": "@markbattistella/docsify-autoheaders",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Auto header numbering for docsify.js",
 	"main": "dist/docsify-autoHeaders.min.js",
 	"repository": {
