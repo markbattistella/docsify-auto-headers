@@ -1,7 +1,7 @@
 {
   "name": "docsify-autoheaders",
-  "version": "2.0.0",
-  "description": "Auto header numbering for Docsify.js",
+  "version": "2.0.1",
+  "description": "Auto header numbering for docsify.js",
   "main": "dist/docsify-autoHeaders.min.js",
   "repository": {
     "type": "git",
@@ -18,5 +18,11 @@
     "headings",
     "docsify",
     "plugin"
-  ]
+  ],
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
