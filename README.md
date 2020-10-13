@@ -94,7 +94,7 @@ upset when she finds out I'm a reclusive wanker.
 ## Contributing
 
 1. Clone the repo:
- `git clone https://github.com/markbattistella/docsify-autoHeadings.git`
+ `git clone https://github.com/markbattistella/docsify-autoHeaders.git`
 
 1. Create your feature branch:
 

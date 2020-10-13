@@ -1,21 +1,20 @@
-name: npm Publish
+name: gh2npm
 on:
-  registry_package:
-    types: [published]
+#  registry_package:
+#    types: [published]
+    push
+
 
 jobs:
-  npm-push:
+  npm-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v1
         with:
-          node-version: '10.x'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: 10
       - run: npm install
-      # Publish to npm
-      - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - run: npm test
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
