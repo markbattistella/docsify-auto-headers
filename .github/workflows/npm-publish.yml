@@ -1,9 +1,7 @@
 name: gh2npm
 on:
-#  registry_package:
-#    types: [published]
-    push
-
+ registry_package:
+   types: [published]
 
 jobs:
   npm-publish:
