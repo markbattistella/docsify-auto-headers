@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>docsify: autoHeaders</title>
+
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="description" content="Auto numbering plugin for Docsify.js">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+	<!-- theme: simple dark -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+</head>
+
+<body>
+
+	<div id="app"></div>
+
+	<script>
+	window.$docsify = {
+		name: 'autoHeaders',
+		repo: 'https://github.com/markbattistella/docsify-autoHeaders',
+
+		// cover page doc
+		coverpage: true,
+		homepage: 'home.md',
+
+		// use a TOC sidebar
+		loadSidebar: false,
+		// hideSidebar: true,
+
+		// auto scroll to top
+		auto2top: true,
+
+		// how many headings to show h1-h6
+		subMaxLevel: 3,
+
+		// site theme
+		themeColor: 'rgba(52,73,94,1)',
+
+		// load _404.md
+		notFoundPage: true,
+
+		// relative urls
+		relativePath: false,
+
+		// site theme
+		themeColor: 'rgba(52,73,94,1)',
+
+		// formatted dates
+		formatUpdated: '{DD}/{MM}/{YYYY} {HH}:{mm}',
+
+
+		// plugin - autoHeaders
+		autoHeaders: {
+			separator:	'decimal',
+			levels:		'3',
+			scope:		'#main'
+		}
+	}
+	</script>
+
+	<!-- docsify.js -->
+	<script src="https://cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+
+	<!-- docsify-autoHeaders -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/docsify-autoheaders"></script> -->
+
+	<!-- local: docsify-autoHeaders -->
+	<script src="docsify-autoHeaders.js"></script>
+
+</body>
+</html>

@@ -1,8 +1,8 @@
 {
   "name": "docsify-autoheaders",
-  "version": "1.3.2",
+  "version": "2.0.0",
   "description": "Auto header numbering for Docsify.js",
-  "main": "docsify-autoHeaders.min.js",
+  "main": "dist/docsify-autoHeaders.min.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/markbattistella/docsify-autoHeaders.git"

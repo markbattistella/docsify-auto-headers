@@ -1,10 +1,8 @@
-# docsify-autoHeaders: Auto numbering body headings
+# docsify-autoHeaders: Auto numbering headings
 
 ![npm Publish](https://github.com/markbattistella/docsify-autoHeaders/workflows/npm%20Publish/badge.svg?event=registry_package) ![npm (tag)](https://img.shields.io/npm/v/docsify-autoheaders/latest) ![GitHub](https://img.shields.io/github/license/markbattistella/docsify-autoheaders) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/docsify-autoheaders)
 
 This plugin is designed to create heading numbers in your pages if you are creating a reference guide. It stops you from having to manually number the items, and then have to then trawl through every heading afterwards to change the numbering system again. It allows you to either have all the headings in one page, or if you split them over many markdown documents then specify what the heading number it should be starting at.
-
-![How it works](demo/header.gif)
 
 ## Installation
 
@@ -30,7 +28,7 @@ Assuming you have a working [docsify](https://docsify.js.org/) framework set up,
  ```js
 <script>
 window.$docsify = {
-    autoHeading: {
+    autoHeaders: {
         separator: '',
         levels:    '',
         scope:     ''
@@ -45,7 +43,8 @@ There are some options available for the `docsify-autoHeaders`:
 | :-------- | :------ |
 | separator | how you'd like the numbers to be separated. `decimal`, `dash`, or `bracket`
 | levels    | heading levels to target `1-6`
-| scope     | the `ID` of the holding element. for docsify this is normally `#main` but I guess if you have `html` inside the `.md` then you can tie it to that instead
+| scope     | the element to narrow it down to. `#main` is the normal scope
+| debug     | `true` or `false` if you want to see `console.log` info
 
 ### 2. Usage
 
@@ -63,49 +62,7 @@ You can :heart: have a starting header at `0` using:
 @autoHeader:0
 ```
 
-## Example
+## Examples
 
-### Input data in `file.md`
-
-```md
-@autoHeader:34
-
-# Black Books
-
-## Season 2
-
-### Episode 1
-
-#### Characters
-- Bernard
-- Fran
-
-#### Quotes
-You! What have you been telling Kate? She thinks I'm
-the renaissance. I have to go along with all this
-"reclusive genius" stuff... she's going to be very
-upset when she finds out I'm a reclusive wanker.
-```
-
-### Output data
-
-![Example output](demo/example.jpg)
-
-## Contributing
-
-1. Clone the repo:
- `git clone https://github.com/markbattistella/docsify-autoHeadings.git`
-
-1. Create your feature branch:
-
- `git checkout -b my-feature`
-
-1. Commit your changes:
-
- `git commit -am 'Add some feature'`
-
-1. `Push` to the branch:
-
- `git push origin my-new-feature`
-
-1. Submit the `pull` request
+- [View heading starting at `1`](/page1)
+- [View heading starting at `n`](/pageN)
