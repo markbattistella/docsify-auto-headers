@@ -2,7 +2,7 @@
 
 # docsify-autoHeaders
 
-![Github2npm](https://github.com/markbattistella/docsify-autoHeaders/workflows/gh2npm/badge.svg?event=registry_package) ![npm (tag)](https://img.shields.io/npm/v/docsify-autoheaders/latest) ![GitHub](https://img.shields.io/github/license/markbattistella/docsify-autoheaders) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/docsify-autoheaders)
+![Github2npm](https://github.com/markbattistella/docsify-autoHeaders/workflows/gh2npm/badge.svg?event=registry_package) ![npm (scoped)](https://img.shields.io/npm/v/@markbattistella/docsify-autoheaders) ![GitHub](https://img.shields.io/github/license/markbattistella/docsify-autoheaders) ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@markbattistella/docsify-autoheaders)
 
 [:sparkles: Demo page :sparkles:](https://markbattistella.github.io/docsify-autoHeaders/)
 
