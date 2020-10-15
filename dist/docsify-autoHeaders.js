@@ -1,4 +1,4 @@
-/*! docsify-autoHeaders.js v2.0.0 | (c) Mark Battistella */
+/*! docsify-autoHeaders.js v3.0.0 | (c) Mark Battistella */
 'use strict';
 
 function getHeading( headingOptions ) {
