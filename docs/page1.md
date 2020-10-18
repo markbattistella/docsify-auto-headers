@@ -1,6 +1,6 @@
 @autoHeader:1
 
-# Black Books - 1
+# Black Books
 
 ## Season 2
 

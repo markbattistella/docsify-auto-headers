@@ -1,6 +1,6 @@
 @autoHeader:34
 
-# Black Books - 34
+# Black Books
 
 ## Season 2
 
