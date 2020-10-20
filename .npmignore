@@ -1,0 +1,5 @@
+# ignore these please
+.github
+demo
+docs
+.markdownlintrc
