@@ -139,8 +139,8 @@ upset when she finds out I'm a reclusive wanker.
 
 ## Live Examples
 
-- [View heading starting at `1`](https://markbattistella.github.io/docsify-autoHeaders/#/page1)
-- [View heading starting at `n`](https://markbattistella.github.io/docsify-autoHeaders/#/pageN)
+- [View heading starting at `1`](page1)
+- [View heading starting at `n`](pageN)
 
 ## Roadmap
 
