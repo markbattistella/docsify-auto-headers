@@ -23,6 +23,8 @@ It stops you from having to manually number the heading, and then have to then t
 
 It allows you to either have all the headings in one page, or if you split them over many `markdown` documents then specify what the heading number it should be starting at.
 
+![How it works](img/header.gif)
+
 ## Installation
 
 ### Update `index.html` file
@@ -93,6 +95,52 @@ You can have a starting header at `0` using:
 ```md
 @autoHeader:0
 ```
+
+## Example data
+
+### `index.html`
+
+```js
+window.$docsify = {
+  autoHeaders: {
+    separator: 'decimal',
+    levels:    '3',
+    scope:     '#main',
+    debug:     false
+  },
+};
+```
+
+### `file.md`
+
+```md
+@autoHeader:34
+
+# Black Books
+
+## Season 2
+
+### Episode 1
+
+#### Characters
+- Bernard
+- Fran
+
+#### Quotes
+You! What have you been telling Kate? She thinks I'm
+the renaissance. I have to go along with all this
+"reclusive genius" stuff... she's going to be very
+upset when she finds out I'm a reclusive wanker.
+```
+
+### Output data
+
+![Example output](img/example.jpg)
+
+## Live Examples
+
+- [View heading starting at `1`](https://markbattistella.github.io/docsify-autoHeaders/#/page1)
+- [View heading starting at `n`](https://markbattistella.github.io/docsify-autoHeaders/#/pageN)
 
 ## Roadmap
 

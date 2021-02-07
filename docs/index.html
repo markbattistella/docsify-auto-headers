@@ -9,47 +9,37 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
 	<!-- theme: simple dark -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+	<link rel="stylesheet" href="site/style.min.css">
 </head>
 
 <body>
 
 	<div id="app"></div>
+	<footer><div id="mb-footer"></div></footer>
 
 	<script>
 	window.$docsify = {
 		name: 'autoHeaders',
 		repo: 'https://github.com/markbattistella/docsify-autoHeaders',
-
-		// cover page doc
-		coverpage: true,
-		homepage: 'home.md',
-
-		// use a TOC sidebar
+		coverpage: 'site/cover.md',
+		homepage: 'site/home.md',
 		loadSidebar: false,
-		// hideSidebar: true,
-
-		// auto scroll to top
+		hideSidebar: true,
 		auto2top: true,
-
-		// how many headings to show h1-h6
-		subMaxLevel: 3,
-
-		// site theme
 		themeColor: 'rgba(52,73,94,1)',
-
-		// load _404.md
-		notFoundPage: true,
-
-		// relative urls
+		notFoundPage: 'site/404.md',
 		relativePath: false,
-
-		// site theme
-		themeColor: 'rgba(52,73,94,1)',
-
-		// formatted dates
+		themeColor: 'var(--mb-theme-01)',
 		formatUpdated: '{DD}/{MM}/{YYYY} {HH}:{mm}',
-
+		autoFooter: {
+			name:			'@markbattistella',
+			url:			'https://github.com/markbattistella',
+			copyYear:		'2013',
+			policy:			'site/policy',
+			terms:			'site/terms',
+			cookies:		'site/cookies'
+		},
 
 		// plugin - autoHeaders
 		autoHeaders: {
@@ -68,6 +58,9 @@
 
 	<!-- local: docsify-autoHeaders -->
 	<!-- <script src="docsify-autoHeaders.js"></script> -->
+
+	<!-- mbSidebarFooter -->
+	<script src="https://cdn.jsdelivr.net/npm/@markbattistella/docsify-sidebarfooter"></script>
 
 </body>
 </html>

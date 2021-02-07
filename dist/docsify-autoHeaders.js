@@ -32,7 +32,7 @@ function getHeading( headingOptions ) {
 
 	// get othe settings
 	let levels	= headingOptions.levels	? headingOptions.levels	: 6;
-	let scope	= headingOptions.scope	? headingOptions.scope	: null;
+	let scope	= headingOptions.scope	? headingOptions.scope	: "main";
 	let debug	= headingOptions.debug == true	? 1	: 0;
 
 	// return the array
