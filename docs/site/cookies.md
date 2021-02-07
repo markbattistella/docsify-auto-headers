@@ -1,6 +1,6 @@
 # Cookie Policy
 
-This is the Cookie Policy for MotherFudgingProxies.com site, accessible from [our site](https://github.com/markbattistella/motherfudgingproxies.com).
+This is the Cookie Policy for docsify-autoHeaders site, accessible from [our site](https://markbattistella.github.io/docsify-autoHeaders/).
 
 ## What Are Cookies
 
@@ -36,4 +36,4 @@ Hopefully that has clarified things for you and as was previously mentioned if t
 
 However if you are still looking for more information then you can contact us through one of our preferred contact methods:
 
-- By [logging an issue](https://github.com/markbattistella/motherfudgingproxies.com/issues) in the repo
+- By [logging an issue](https://github.com/markbattistella/docsify-autoHeaders/issues) in the repo
