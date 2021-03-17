@@ -54,7 +54,7 @@ Assuming you have a working [docsify](https://docsify.js.org/) framework set up,
         levels:    String,  // heading levels h[1-6]
         scope:     String,  // plugin search scope
         debug:     Boolean  // show console.log messages
-      },
+      }
     };
     </script>
     ```
@@ -142,9 +142,9 @@ upset when she finds out I'm a reclusive wanker.
 - [View heading starting at `1`](page1)
 - [View heading starting at `n`](pageN)
 
-## Roadmap
+## Customising individual numbers
 
-Looking ahead, I want to add in the ability to start all levels of headings:
+You can also manually set the starting number of each of the levels by using the following format:
 
 ```md
 @autoheaders:3.5.6.6.1.12
@@ -152,7 +152,7 @@ Looking ahead, I want to add in the ability to start all levels of headings:
 ##### New heading
 ```
 
-Respectively starting the first heading at:
+Respectively starting the first level 6 heading (H6) at:
 
     3.5.6.6.2.1 New heading
 
