@@ -52,7 +52,7 @@ Assuming you have a working [docsify](https://docsify.js.org/) framework set up,
         levels:    String,  // heading levels h[1-6]
         scope:     String,  // plugin search scope
         debug:     Boolean  // show console.log messages
-      },
+      }
     };
     </script>
     ```
@@ -86,7 +86,7 @@ At the top of your file add the following snippet:
 
 At the end of the identifier `(marked with #)`, add the starting heading number. If you don't have a valid entry then it won't auto number.
 
-It accepts only numbers, and decimals are rounded down.
+It accepts only numbers.
 
 You can have a starting header at `0` using:
 
@@ -94,9 +94,9 @@ You can have a starting header at `0` using:
 @autoHeader:0
 ```
 
-## Roadmap
+## Customising individual numbers
 
-Looking ahead, I want to add in the ability to start all levels of headings:
+You can also manually set the starting number of each of the levels by using the following format:
 
 ```md
 @autoheaders:3.5.6.6.1.12
@@ -104,7 +104,7 @@ Looking ahead, I want to add in the ability to start all levels of headings:
 ##### New heading
 ```
 
-Respectively starting the first heading at:
+Respectively starting the first level 6 heading (H6) at:
 
     3.5.6.6.2.1 New heading
 
