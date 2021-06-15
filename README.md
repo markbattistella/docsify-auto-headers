@@ -44,18 +44,19 @@ Assuming you have a working [docsify](https://docsify.js.org/) framework set up,
 
 1. In docsify setup configure the plugin (see [configuration](#configuration) for setup):
 
-    ```js
-    <script>
-    window.$docsify = {
-      autoHeaders: {
-        separator: String,  // how numbers should be separated
-        levels:    String,  // heading levels h[1-6]
-        scope:     String,  // plugin search scope
-        debug:     Boolean  // show console.log messages
-      }
-    };
-    </script>
-    ```
+  ```js
+  <script>
+  window.$docsify = {
+    autoHeaders: {
+	  separator: String,          // how numbers should be separated
+	  custom:    String,          // if `separator` is set to other then specify own here
+	  levels:    String | Object, // heading levels h[1-6]
+	  scope:     String,          // plugin search scope
+	  debug:     Boolean          // show console.log messages
+    }
+  };
+  </script>
+  ```
 
 ### npm install
 
@@ -71,8 +72,10 @@ There are some options available for the `docsify-autoHeaders`:
 
 | setting   | options                                                         |
 |-----------|-----------------------------------------------------------------|
-| separator | how the numbers are separated - `decimal`, `dash`, or `bracket` |
-| levels    | heading levels to target `1-6`                                  |
+| separator | how the numbers are separated: `decimal`, `dash`, `bracket`, or `other` |
+| custom    | if `separator` is set to `other` then you can specify the custom styled separator here |
+| levels    | String: heading levels to target `1-6`                          |
+|           | Object: start and finish for custom range
 | scope     | the element to narrow it down to. `#main` is the default scope  |
 | debug     | `true` or `false` if you want to see `console.log` info         |
 
@@ -106,7 +109,50 @@ You can also manually set the starting number of each of the levels by using the
 
 Respectively starting the first level 6 heading (H6) at:
 
-    3.5.6.6.2.1 New heading
+```md
+3.5.6.6.2.1 New heading
+```
+
+## Start and finish range
+
+You can also target specific heading levels for the numbering which works well if you want to skip H1.
+
+```js
+<script>
+window.$docsify = {
+  autoHeaders: {
+	separator: 'other',
+	custom:    '--',
+	levels:    {
+	  start:  '2',
+	  finish: '4'
+	}
+	scope:     '#main',
+	debug:     false
+  }
+};
+</script>
+```
+
+```md
+@autoheaders:1.2.3.4.5.6
+
+# Level 1 heading
+
+## Level 2 heading
+
+### Level 3 heading
+```
+
+```md
+Level 1 heading
+
+1-- Level 2 heading
+
+1--2-- Level 3 heading
+```
+
+!> **Note:** though it skips H1, the numbering starts at the first integer from the `@autoheaders:1.2.3.4.5.6` data. The above example should be read as `@autoheaders:1.2.3`
 
 ## Contributing
 
