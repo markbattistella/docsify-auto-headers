@@ -1,74 +1,181 @@
-/*! docsify-autoHeaders.js v4.0.0 | (c) Mark Battistella */
+/*
+ * docsify-autoHeaders.js v4.1.0
+ * (https://markbattistella.github.io/docsify-autoHeaders/)
+ * Copyright (c) 2021 Mark Battistella (@markbattistella)
+ * Licensed under MIT
+ */
+
+//
+// MARK: - javascript policy
+//
 'use strict';
 
-function getHeading( headingOptions ) {
 
-	// if it is empty
+
+//
+// MARK: - default values
+//
+const autoHeaderOptions = {
+	separator:	'',
+	custom:		'',
+	levels:		'',
+	scope:		'',
+	debug:		false
+}
+
+
+
+//
+// MARK: - get the index.html options
+//
+function getAutoHeadersOptions( autoHeaderOptions ) {
+
+	// check for empty config
 	if(
-		!headingOptions.separator	&&
-		!headingOptions.levels		&&
-		!headingOptions.scope
+		!autoHeaderOptions.separator	||
+		!autoHeaderOptions.levels		||
+		!autoHeaderOptions.scope
 	) {
-		return 'No config set'
+		return console.error(
+			'ERROR: config settings not set'
+		)
 	}
 
 	// blank separator
-	var separator = '';
+	let separator = (
+		autoHeaderOptions.separator == 'other' ?
+			autoHeaderOptions.custom ?
+				autoHeaderOptions.custom : '_'
+			: ''
+	);
 
 	// output the correct from words
-	switch (headingOptions.separator) {
-		case 'decimal':
-			separator = '.'
+	switch( autoHeaderOptions.separator ) {
+
+		case 'decimal'	:
+			separator = '.';
 			break;
-		case 'dash':
-			separator = '-'
+
+		case 'dash'		:
+			separator = '-';
 			break;
-		case 'bracket':
-			separator = ')'
+
+		case 'bracket'	:
+			separator = ')';
 			break;
+
+		case 'other'	:
+			separator = separator;
+			break;
+
 		default:
 			return;
 	}
 
-	// get othe settings
-	let levels	= headingOptions.levels	? headingOptions.levels	: 6;
-	let scope	= headingOptions.scope	? headingOptions.scope	: "main";
-	let debug	= headingOptions.debug == true	? 1	: 0;
+	// get other settings
+	let levels = (
+		autoHeaderOptions.levels ?
+			autoHeaderOptions.levels : 6
+	);
+
+	let scope = (
+		autoHeaderOptions.scope ?
+			autoHeaderOptions.scope : "main"
+	);
+
+	let debug = (
+		autoHeaderOptions.debug === true ?
+			true : false
+	);
 
 	// return the array
-	return [ separator, levels, scope, debug ];
+	return [
+		separator,
+		levels,
+		scope,
+		debug
+	];
 }
 
-// defaults - and setup
-const headingOptions = {
-	separator:	'',
-	levels:		'',
-	scope:		''
-};
 
 
-// the function
+//
+// MARK: - main function
+//
 function autoHeaders( hook, vm ) {
 
-	// make the variables global
-	var getHeadingNumber = null;
-
-	// get the variables from the config
-	const	headingOptionsArray = getHeading( headingOptions ),
-
-			// create variables
-			arraySeparator	= headingOptionsArray[0],
-			arrayLevel		= headingOptionsArray[1],
-			arrayScope		= headingOptionsArray[2],
-			arrayDebug		= headingOptionsArray[3];
-
-	// reset counter
-	function resetBelowLevels( currentLevel ) {
-		// currentLevel is string so need to convert it to number
-		for( let i = +currentLevel + 1; i <= 6; i++ ) {
-			startingNumbers[i] = 0;
-		}
+	//
+	// MARK: - safety
+	//
+	if( getAutoHeadersOptions( autoHeaderOptions ) === undefined ) {
+		return;
 	}
+
+
+	//
+	// MARK: - variables
+	//
+
+	let getHeadingNumber = null;
+
+	// get the options variables
+	const getAutoHeadersOptionsArray = getAutoHeadersOptions(
+		autoHeaderOptions
+	),
+
+	// create new variables
+	optionsSeparator = getAutoHeadersOptionsArray[ 0 ],
+	optionsLevel     = getAutoHeadersOptionsArray[ 1 ],
+	optionsScope     = getAutoHeadersOptionsArray[ 2 ],
+	optionsDebug     = getAutoHeadersOptionsArray[ 3 ],
+
+	// get the heading range from options
+	setHeadingRange = ( headingInputValue ) => {
+
+		// variables
+		let output = '';
+
+		// 1. check if is a string
+		if(
+			typeof optionsLevel === 'string'
+		) {
+
+			// set it as H1 to
+			output = `H1-${ headingInputValue }`;
+
+		// 2. check if is object and not null
+		} else if(
+			typeof optionsLevel === 'object' &&
+			optionsLevel !== null
+		) {
+
+			// error catching
+
+			// -- start has to be less than finish
+			if( headingInputValue.start > headingInputValue.finish ) {
+				return console.log( 'ERROR: heading start level cannot be greater than finish level' );
+			}
+
+			// -- start and finish need to be between 1-6 incl.
+			if(
+				( headingInputValue.start  < 1 ) ||
+				( headingInputValue.start  > 6 ) ||
+				( headingInputValue.finish < 1 ) ||
+				( headingInputValue.finish > 6 )
+			) {
+				return console.log( 'ERROR: heading levels need to be between 1-6' );
+			}
+
+			// set the range
+			output = `H${ headingInputValue.start }-${ headingInputValue.finish }`;
+		}
+
+		return output;
+	},
+
+	// save as constant
+	optionsLevelRange = setHeadingRange( optionsLevel );
+
 
 	//
 	// MARK: - check if the document starts with the signifier
@@ -103,7 +210,7 @@ function autoHeaders( hook, vm ) {
 			} else {
 
 				// make an array from the separator
-				getHeadingNumber = getHeadingNumber.split( arraySeparator );
+				getHeadingNumber = getHeadingNumber.split( optionsSeparator );
 
 				// dont work with too many items in the array
 				if( getHeadingNumber.length > 6 ) {
@@ -115,10 +222,11 @@ function autoHeaders( hook, vm ) {
 
 					// pad in the extra array items
 					getHeadingNumber = getHeadingNumber.concat(
-						new Array(6)		// add a new array upto 6 items
-						.fill(0) )			// fill it with zeros
-						.slice(0, 6)		// cut off after 6 items
-						.map( x => +x );	// map the Strings to Int
+						new Array( 6 )		// add a new array upto 6 items
+						.fill( 0 )			// fill it with zeros
+					)
+					.slice( 0, 6 )			// cut off after 6 items
+					.map( x => +x );		// map the Strings to Int
 				}
 			}
 
@@ -136,104 +244,121 @@ function autoHeaders( hook, vm ) {
 	});
 
 
+
 	//
 	// MARK: - add the heading numbers
 	//
 
 	hook.doneEach( function() {
 
-		// set the scope of the automisation
-		const contentScope	= document.querySelector( arrayScope );
+		//
+		// 1. scope checking
+		//
 
-		// if the scope is empty
-		if( !contentScope && arrayDebug ) {
-			console.log(	'--- autoHeaders error: start ---'  + '\n' +
-							'The "scope" entry is not valid :(' + '\n' +
-							'--- autoHeaders error: end  ---'
-						);
+		// set the scope of the auto numbering
+		const contentScope	= document.querySelector( optionsScope );
 
-			// exit out
-			return;
+		// if scope doesnt exist
+		// and we are dubugging
+		if( !contentScope && optionsDebug ) {
+
+			// log the error
+			return console.error(
+				'ERROR: the "scope" entry is not valid'
+			);
+
 		}
 
-		// MARK: - are we running autoHeaders
-		if( getHeadingNumber == null ) {
 
-			// if we're debugging
-			if( arrayDebug ) {
-				console.log( '--- autoHeaders error: start ---'    + '\n\n' +
-						 	'The "start" number is empty or null' + '\n' +
-						 	'Logged value: "' + getHeadingNumber + '" \n\n' +
-						 	'--- autoHeaders error: end  ---'
-							);
-			}
 
-		// no errors
+		//
+		// 2. do we have the headers array
+		//
+
+		if( getHeadingNumber === null ) {
+
+			// log the error
+			return optionsDebug ? console.error(
+				'ERROR: the "start" number is empty or null'
+			) : '';
+
 		} else {
 
+			// 2. validate the array is all numeric
+			if( getHeadingNumber.every( isNaN ) ) {
 
-			// check if all the items in the array are numeric
-			if( !getHeadingNumber.every( isNaN ) ) {
+				// log the error
+				return optionsDebug ? console.error(
+					'ERROR: the values provided are not numeric'
+				) : '';
 
-				// set the variable up
-				var validHeadingNumber	= '';
+			} else {
+
+				//
+				// validated constants
+				//
+
+				let validHeadingNumber	= '';
 
 				// get the headings into array
-				const 	contentHeaders	= contentScope.querySelectorAll(
-											'h1, h2, h3, h4, h5, h6'
-										),
+				const contentHeaders = contentScope.querySelectorAll(
+					'h1, h2, h3, h4, h5, h6'
+				),
 
-						// check if the array items are positive numbers
-						positiveNumber = (element) => ( element >= 0 ),
+				// check if the array items are positive numbers
+				positiveNumber = ( element ) => ( element >= 0 );
 
-						// rount the numbers down
-						roundDown = (element) => Math.floor( element );
-
-
-				// are the numbers all positive
+				// 3. are the numbers all positive
 				if( getHeadingNumber.every( positiveNumber ) ) {
 
-					// set the starting values
+					// 4. build the functionality
+
+
+					// generate the constants
 					// -- minus 1 since we add immediately in the loop
-					const startingNumbers	= [ 0,                       // null
-												getHeadingNumber[0] - 1, // h1
-												getHeadingNumber[1] - 1, // h2
-												getHeadingNumber[2] - 1, // h3
-												getHeadingNumber[3] - 1, // h4
-												getHeadingNumber[4] - 1, // h5
-												getHeadingNumber[5] - 1, // h6
-										];
+					const startingNumbers = [
+						0,                       // null
+						getHeadingNumber[ 0 ] - 1, // h1
+						getHeadingNumber[ 1 ] - 1, // h2
+						getHeadingNumber[ 2 ] - 1, // h3
+						getHeadingNumber[ 3 ] - 1, // h4
+						getHeadingNumber[ 4 ] - 1, // h5
+						getHeadingNumber[ 5 ] - 1, // h6
+					];
 
 					// track the first run
-					let firstRun = [	true,	// null
-										true, 	// h1 run yet
-										true,	// h2 run yet
-										true,	// h3 run yet
-										true,	// h4 run yet
-										true,	// h5 run yet
-										true	// h6 run yet
-									];
+					let firstRun = [
+						true,	// null
+						true, 	// h1 run yet
+						true,	// h2 run yet
+						true,	// h3 run yet
+						true,	// h4 run yet
+						true,	// h5 run yet
+						true	// h6 run yet
+					];
 
 					// loop through all the elements inside scope
-					for( var item in contentHeaders ) {
+					for( var contentItem in contentHeaders ) {
+
 
 						// this element from item number
-						var element		= contentHeaders[item],
-							numberText	= '';
+						var element = (
+							contentHeaders[ contentItem ]
+						),
+						numberText	= '';
 
 						// limit the heading tag number in search
-						const headingRegex = new RegExp(	'^H([1-'	+
-															arrayLevel	+
-															'])$'
-														);
+						const headingRegex = new RegExp(
+							`^H([${ optionsLevelRange }])$`
+						);
 
 						// does the element match a heading regex
-						if( !element			||
-							!element.tagName	||
+						// -- return to beginning of loop
+						if(
+							!element								||
+							!element.tagName						||
 							!element.tagName.match( headingRegex )
 						) {
-
-							// return to beginning of loop
 							continue;
 						}
 
@@ -241,64 +366,66 @@ function autoHeaders( hook, vm ) {
 						var elementLevel = RegExp.$1;
 
 						// add `1` to the array numbers
-						startingNumbers[elementLevel]++;
+						startingNumbers[ elementLevel ]++;
+
 
 						// reset all level below except for the first run
 					    if( !firstRun[ elementLevel ] ) {
+
+							// callback
 							resetBelowLevels( elementLevel );
-					    	firstRun[ elementLevel ] = false;
+
 						}
 
+						// set the first run to false
+						firstRun[ elementLevel ] = false;
+
 						// loop through the headings
-						for(	var levelNumber = 1;
+						for(
+							var levelNumber = 1;
 								levelNumber <= 6;
 								levelNumber++
 						) {
 
-							// if the number is lt the element number
+							// if the loop number
+							// is less than the element number
+							// then generate the numbering text
 							if( levelNumber <= elementLevel ) {
-								numberText += startingNumbers[levelNumber] + arraySeparator
+								numberText += startingNumbers[ levelNumber ] + optionsSeparator
+
+							} else {
+
+								// go back to top
+								continue;
+
 							}
 
 						}
 
 						// add the number outside the heading
 						// -- keep the anchor links :)
-						element.innerHTML =  numberText + ' ' + element.innerHTML.replace(/^[0-9\.\s]+/,'' );
+						element.innerHTML =  numberText + ' ' + element.innerHTML.replace(/^[0-9\.\s]+/, '' );
 
+					}
+
+					// callback function
+					function resetBelowLevels( currentLevel ) {
+
+						// currentLevel is string
+						// convert it to number
+						for( let i = +currentLevel + 1; i <= 6; i++ ) {
+							startingNumbers[ i ] = 0;
+						}
 					}
 
 				} else {
 
-					// if we're debugging
-					if( arrayDebug ) {
-						console.log( '--- autoHeaders error: start ---'  + '\n\n' +
-								 	'The numbers are not positive' + '\n' +
-								 	'Value: "' + getHeadingNumber + '" \n\n' +
-								 	'--- autoHeaders error: end  ---'
-									);
-					}
-
-					// exit out
-					return;
+					// log the error
+					return optionsDebug ? console.error(
+						'ERROR: the values are not positive integers'
+					) : '';
 
 				}
-
-			// one of the items in the array is not numeric
-			} else {
-
-				// if we're debugging
-				if( arrayDebug ) {
-					console.log( '--- autoHeaders error: start ---'  + '\n\n' +
-							 	'The "start" number is not numeric' + '\n' +
-							 	'Value: "' + getHeadingNumber + '" \n\n' +
-							 	'--- autoHeaders error: end  ---'
-								);
-				}
-
-				// exit out
-				return;
-
 			}
 		}
 	});
@@ -307,7 +434,10 @@ function autoHeaders( hook, vm ) {
 
 // find heading plugin options
 window.$docsify.autoHeaders = Object.assign(
-	headingOptions,
+	autoHeaderOptions,
 	window.$docsify.autoHeaders
 );
-window.$docsify.plugins = [].concat(autoHeaders, window.$docsify.plugins);
+window.$docsify.plugins = [].concat(
+	autoHeaders,
+	window.$docsify.plugins
+);
