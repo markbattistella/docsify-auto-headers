@@ -1,9 +1,4 @@
 # ignore these please
 .git
 .github
-demo
-docs
 .DS_Store
-.markdownlintrc
-docs/docsify-autoHeaders.js
-.markdownlintrc

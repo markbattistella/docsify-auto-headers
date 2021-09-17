@@ -12,16 +12,13 @@
 	"bugs": {
 		"url": "https://github.com/markbattistella/docsify-autoHeaders/issues"
 	},
-	"homepage": "https://github.com/markbattistella/docsify-autoHeaders#readme",
+	"homepage": "https://markbattistella.github.io/docsify-autoHeaders-docs/",
 	"keywords": [
 		"auto numbering",
 		"headings",
 		"docsify",
 		"plugin"
 	],
-	"directories": {
-		"doc": "docs"
-	},
 	"scripts": {
 		"launch": "docsify serve ./docs -o"
 	}
