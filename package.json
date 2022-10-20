@@ -18,8 +18,5 @@
 		"headings",
 		"docsify",
 		"plugin"
-	],
-	"scripts": {
-		"launch": "docsify serve ./docs -o"
-	}
+	]
 }
