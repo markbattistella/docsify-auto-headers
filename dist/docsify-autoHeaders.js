@@ -180,60 +180,79 @@ function autoHeaders( hook, vm ) {
 	// get the `@autoHeader:` data
 	hook.beforeEach( function( content ) {
 
-		// get the first 12 characters
-		const getFirstCharacters = content.slice( 0, 12 );
+		// check if beginning with the plugin key		
+		let separator = optionsSeparator;
+		if (optionsSeparator === '.' || optionsSeparator === ')') {
+			separator = '\\'+optionsSeparator;
+		}
+		const commentRegex = new RegExp(
+			'<!--\\s*autoHeader\\s*:\\s*(([\\w\\d]*'+separator+'?)+)\\s*-->');
+		for (const line of content.split( "\n" )){
+			console.debug(line)
+			if (! line.startsWith("<!--")){
+				break
+			}
+			let match = line.trim().match(commentRegex)
+			if (match === null) { // skip not matched comment elements
+				continue
+			}
+			console.debug(match[1])
+			if (match[1] === "off"){
+				getHeadingNumber = null
+				return
+			}
+			// if not match, match[1] is "" (empty string)
+			if (match[1] !== "") {
+				getHeadingNumber = match[1]
+			}
+		}
 
-		// check if beginning with the plugin key
-		if( getFirstCharacters === "@autoHeader:" ) {
-
+		if( getHeadingNumber === null && content.startsWith("@autoHeader:") ) {
 			// get the first line of data
 			const getFirstLine = content.split( "\n" )[0];
-
 			// get everything after the `:`
+			// if not match, getHeadingNumber is undefined (!getHeadingNumber is true)
 			getHeadingNumber = getFirstLine.split( ":" )[1];
+			if(!getHeadingNumber || getHeadingNumber === ''){
+				getHeadingNumber = null
+			}
+			else {
+				getHeadingNumber = getHeadingNumber.trim()
+			}
+			var cleanedContent = content.replace( getFirstLine, '' );
+		}
 
-			// there is no data to continue
-			if(
-				!getHeadingNumber			||
-				getHeadingNumber == null	||
-				getHeadingNumber == ''
-			) {
+		// there is no data to continue
+		if(getHeadingNumber !== null) {
+			// make an array from the separator
+			// map the Strings to Int
+			getHeadingNumber = getHeadingNumber.split( optionsSeparator )
+                                               .map(x => parseInt(x));
+
+			// don't work with too many items in the array
+			if( getHeadingNumber.length > 6 ) {
 
 				// set the headerNumber to null
 				getHeadingNumber = null;
 
-			// transform the data
 			} else {
 
-				// make an array from the separator
-				getHeadingNumber = getHeadingNumber.split( optionsSeparator );
-
-				// don't work with too many items in the array
-				if( getHeadingNumber.length > 6 ) {
-
-					// set the headerNumber to null
-					getHeadingNumber = null;
-
-				} else {
-
-					// pad in the extra array items
-					getHeadingNumber = getHeadingNumber.concat(
-						new Array( 6 )		// add a new array upto 6 items
-						.fill( 0 )			// fill it with zeros
-					)
-					.slice( 0, 6 )			// cut off after 6 items
-					.map( x => +x );		// map the Strings to Int
-				}
+				// pad in the extra array items
+				getHeadingNumber = getHeadingNumber.concat(
+					new Array( 6 )		// add a new array upto 6 items
+					.fill( 0 )			// fill it with zeros
+				)
+				.slice( 0, 6 )			// cut off after 6 items
+				.map( x => +x );		// map the Strings to Int
 			}
-
+			
 			// remove the line
-			var cleanedContent = content.replace( getFirstLine, '' );
-
-			// return the cleaned content
-			return cleanedContent;
-
-		} else {
-
+			if (cleanedContent){
+				// return the cleaned content
+				return cleanedContent;
+			}
+		}
+		else {
 			// set the headerNumber to default 1.1.1.1.1.1
 			getHeadingNumber = new Array(6).fill(1);
 		}
