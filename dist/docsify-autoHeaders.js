@@ -16,10 +16,10 @@
 // MARK: - default values
 //
 const autoHeaderOptions = {
-	separator:	'',
-	custom:		'',
-	levels:		'',
-	scope:		'',
+	separator:	'decimal',
+	custom:		'.',
+	levels:		6,
+	scope:		'#main',
 	debug:		false
 }
 
@@ -97,7 +97,7 @@ function getAutoHeadersOptions( autoHeaderOptions ) {
 
 	let scope = (
 		autoHeaderOptions.scope ?
-			autoHeaderOptions.scope : "main"
+			autoHeaderOptions.scope : "#main"
 	);
 
 	let debug = (
@@ -151,17 +151,12 @@ function autoHeaders( hook, vm ) {
 		// error catching
 		// -- start has to be less than finish
 		if( headingInputValue.start > headingInputValue.finish ) {
-			return console.log( 'ERROR: heading start level cannot be greater than finish level' );
+			return console.error('ERROR: heading start level cannot be greater than finish level' );
 		}
 
 		// -- start and finish need to be between 1-6 incl.
-		if(
-			( headingInputValue.start  < 1 ) ||
-			//( headingInputValue.start  > 6 ) ||
-			//( headingInputValue.finish < 1 ) ||
-			( headingInputValue.finish > 6 )
-		) {
-			return console.log( 'ERROR: heading levels need to be between 1-6' );
+		if( ( headingInputValue.start  < 1 ) || ( headingInputValue.finish > 6 ) ) {
+			return console.error('ERROR: heading levels need to be between 1-6' );
 		}
 
 		// set the range (literal as 'Hm-n')
@@ -179,7 +174,6 @@ function autoHeaders( hook, vm ) {
 
 	// get the `@autoHeader:` data
 	hook.beforeEach( function( content ) {
-
 		// check if beginning with the plugin key		
 		let separator = optionsSeparator;
 		if (optionsSeparator === '.' || optionsSeparator === ')') {
@@ -231,21 +225,15 @@ function autoHeaders( hook, vm ) {
 
 			// don't work with too many items in the array
 			if( getHeadingNumber.length > 6 ) {
-
 				// set the headerNumber to null
-				getHeadingNumber = null;
-
-			} else {
-
-				// pad in the extra array items
+				getHeadingNumber = getHeadingNumber.slice(0,6);
+			} else if (getHeadingNumber.length < 6) {
+				// padding to length of 6.
+				// padding with 1 instead of 0, since we will minus 1 before formatting
 				getHeadingNumber = getHeadingNumber.concat(
-					new Array( 6 )		// add a new array upto 6 items
-					.fill( 0 )			// fill it with zeros
+					new Array(6 - getHeadingNumber.length).fill(1)
 				)
-				.slice( 0, 6 )			// cut off after 6 items
-				.map( x => +x );		// map the Strings to Int
 			}
-			
 			// remove the line
 			if (cleanedContent){
 				// return the cleaned content
@@ -363,21 +351,20 @@ function autoHeaders( hook, vm ) {
 
 						// limit the heading tag number in search
 						const headingRegex = new RegExp(
-							`^H([${ optionsLevelRange }])$`
+							`^H([${ optionsLevelRange }])$`  // "^H([1-6])$"
 						);
 
 						// does the element match a heading regex
 						// -- return to beginning of loop
-						if(
-							!element								||
-							!element.tagName						||
-							!element.tagName.match( headingRegex )
-						) {
+						if( !element || !element.tagName ) {
 							continue;
 						}
-
+						match = element.tagName.match( headingRegex )
+						if (match === null || match[1] === ''){ // not match
+							continue
+						}
 						// return the heading level number
-						var elementLevel = RegExp.$1;
+						var elementLevel = parseInt(match[1]);
 
 						// add `1` to the array numbers
 						startingNumbers[ elementLevel ]++;
