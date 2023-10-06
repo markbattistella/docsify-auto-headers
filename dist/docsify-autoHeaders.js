@@ -164,6 +164,7 @@ function autoHeaders(hook, vm) {
 		}
 		const commentRegex = new RegExp(
 			'<!--\\s*autoHeader\\s*:\\s*(([\\w\\d]*' + separator + '?)+)\\s*-->');
+		getHeadingNumber = null;
 		for (const line of content.split("\n")) {
 			if (!line.startsWith("<!--")) {
 				break
