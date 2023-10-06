@@ -77,6 +77,23 @@ function getAutoHeadersOptions( autoHeaderOptions ) {
 		autoHeaderOptions.levels ?
 			autoHeaderOptions.levels : 6
 	);
+	if (typeof levels === "string"){
+		levels = parseInt(levels)
+	}
+	if (typeof levels === "number" ){
+		levels = {
+			start: 1,
+			finish: levels
+		}
+	}
+	else if (typeof levels === "object" ) {
+		if (typeof levels.start === "string") {
+			levels.start = parseInt(levels.start)
+		}
+		if (typeof levels.finish === "string") {
+			levels.finish = parseInt(levels.finish)
+		}
+	}
 
 	let scope = (
 		autoHeaderOptions.scope ?
@@ -122,7 +139,6 @@ function autoHeaders( hook, vm ) {
 	const getAutoHeadersOptionsArray = getAutoHeadersOptions(
 		autoHeaderOptions
 	),
-
 	// create new variables
 	optionsSeparator = getAutoHeadersOptionsArray[ 0 ],
 	optionsLevel     = getAutoHeadersOptionsArray[ 1 ],
@@ -131,45 +147,25 @@ function autoHeaders( hook, vm ) {
 
 	// get the heading range from options
 	setHeadingRange = ( headingInputValue ) => {
-
-		// variables
-		let output = '';
-
-		// 1. check if is a string
-		if(
-			typeof optionsLevel === 'string'
-		) {
-
-			// set it as H1 to
-			output = `H1-${ headingInputValue }`;
-
-		// 2. check if is object and not null
-		} else if(
-			typeof optionsLevel === 'object' &&
-			optionsLevel !== null
-		) {
-
-			// error catching
-
-			// -- start has to be less than finish
-			if( headingInputValue.start > headingInputValue.finish ) {
-				return console.log( 'ERROR: heading start level cannot be greater than finish level' );
-			}
-
-			// -- start and finish need to be between 1-6 incl.
-			if(
-				( headingInputValue.start  < 1 ) ||
-				( headingInputValue.start  > 6 ) ||
-				( headingInputValue.finish < 1 ) ||
-				( headingInputValue.finish > 6 )
-			) {
-				return console.log( 'ERROR: heading levels need to be between 1-6' );
-			}
-
-			// set the range
-			output = `H${ headingInputValue.start }-${ headingInputValue.finish }`;
+		// the headingInputValue is an object with 'start' and 'finish' number fields.
+		// error catching
+		// -- start has to be less than finish
+		if( headingInputValue.start > headingInputValue.finish ) {
+			return console.log( 'ERROR: heading start level cannot be greater than finish level' );
 		}
 
+		// -- start and finish need to be between 1-6 incl.
+		if(
+			( headingInputValue.start  < 1 ) ||
+			//( headingInputValue.start  > 6 ) ||
+			//( headingInputValue.finish < 1 ) ||
+			( headingInputValue.finish > 6 )
+		) {
+			return console.log( 'ERROR: heading levels need to be between 1-6' );
+		}
+
+		// set the range (literal as 'Hm-n')
+		let output = `${ headingInputValue.start }-${ headingInputValue.finish }`;
 		return output;
 	},
 
@@ -212,7 +208,7 @@ function autoHeaders( hook, vm ) {
 				// make an array from the separator
 				getHeadingNumber = getHeadingNumber.split( optionsSeparator );
 
-				// dont work with too many items in the array
+				// don't work with too many items in the array
 				if( getHeadingNumber.length > 6 ) {
 
 					// set the headerNumber to null
@@ -238,8 +234,8 @@ function autoHeaders( hook, vm ) {
 
 		} else {
 
-			// set the headerNumber to null
-			getHeadingNumber = null;
+			// set the headerNumber to default 1.1.1.1.1.1
+			getHeadingNumber = new Array(6).fill(1);
 		}
 	});
 
@@ -258,8 +254,7 @@ function autoHeaders( hook, vm ) {
 		// set the scope of the auto numbering
 		const contentScope	= document.querySelector( optionsScope );
 
-		// if scope doesnt exist
-		// and we are dubugging
+		// if scope doesn't exist and we are debugging
 		if( !contentScope && optionsDebug ) {
 
 			// log the error
@@ -370,7 +365,8 @@ function autoHeaders( hook, vm ) {
 
 
 						// reset all level below except for the first run
-					    if( !firstRun[ elementLevel ] ) {
+						// only running on the given level range 
+					    if( !firstRun[ elementLevel ] && (elementLevel>=optionsLevel.start) ) {
 
 							// callback
 							resetBelowLevels( elementLevel );
@@ -382,7 +378,7 @@ function autoHeaders( hook, vm ) {
 
 						// loop through the headings
 						for(
-							var levelNumber = 1;
+							var levelNumber = optionsLevel.start;
 								levelNumber <= 6;
 								levelNumber++
 						) {
