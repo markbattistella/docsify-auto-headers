@@ -1,22 +1,47 @@
 {
-	"name": "@markbattistella/docsify-autoheaders",
-	"version": "4.1.0",
-	"description": "Auto header numbering for docsify.js",
-	"main": "dist/docsify-autoHeaders.min.js",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/markbattistella/docsify-autoHeaders.git"
-	},
-	"author": "Mark Battistella",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/markbattistella/docsify-autoHeaders/issues"
-	},
-	"homepage": "https://markbattistella.github.io/docsify-autoHeaders-docs/",
-	"keywords": [
-		"auto numbering",
-		"headings",
-		"docsify",
-		"plugin"
-	]
+  "name": "@markbattistella/docsify-autoheaders",
+  "version": "6.0.0",
+  "description": "Auto header numbering for docsify.js",
+  "main": "./dist/docsify-auto-headers.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markbattistella/docsify-auto-headers.git"
+  },
+  "scripts": {
+    "launch": "docsify serve ./docs -o",
+    "update": "ncu -u && npm update && npm install",
+    "babel": "npx babel ./dist/docsify-auto-headers.js -o ./dist/docsify-auto-headers.babel.js",
+    "uglify": "uglifyjs ./dist/docsify-auto-headers.babel.js --verbose -c -m -o ./dist/docsify-auto-headers.min.js",
+    "minify": "npm run babel && npm run uglify",
+    "patch": "node ./.github/scripts/release.js -patch",
+    "minor": "node ./.github/scripts/release.js -minor",
+    "major": "node ./.github/scripts/release.js -major"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.6",
+    "@babel/core": "^7.24.6",
+    "@babel/preset-env": "^7.24.6",
+    "docsify-cli": "^4.4.4",
+    "jsonfile": "^6.1.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
+  },
+  "unpkg": "./dist/docsify-auto-headers.min.js",
+  "jsdelivr": "./dist/docsify-auto-headers.min.js",
+  "keywords": [
+    "auto numbering",
+    "headings",
+    "header",
+    "docsify",
+    "plugin"
+  ],
+  "author": "Mark Battistella",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/markbattistella/docsify-auto-headers/issues"
+  },
+  "homepage": "https://autoheader.docsify.markbattistella.com"
 }

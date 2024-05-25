@@ -1,4 +1,7 @@
-# ignore these please
-.git
+.vscode
+.markdownlint.json
 .github
+.gitattributes
 .DS_Store
+*babel.js
+docs

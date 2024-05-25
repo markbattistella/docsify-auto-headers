@@ -1,6 +1,6 @@
 <div align="center">
 
-# docsify-autoHeaders
+# docsify-auto-headers
 
 ![Github2npm](https://github.com/markbattistella/docsify-autoHeaders/workflows/gh2npm/badge.svg?event=registry_package) ![npm (scoped)](https://img.shields.io/npm/v/@markbattistella/docsify-autoheaders) ![GitHub](https://img.shields.io/github/license/markbattistella/docsify-autoheaders) ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@markbattistella/docsify-autoheaders)
 
@@ -8,8 +8,6 @@
 
 [![](https://img.shields.io/badge/%20-@markbattistella-blue?logo=paypal&style=for-the-badge)](https://www.paypal.me/markbattistella/6AUD)
 [![](https://img.shields.io/badge/%20-buymeacoffee-black?logo=buy-me-a-coffee&style=for-the-badge)](https://www.buymeacoffee.com/markbattistella)
-
-[![](https://img.shields.io/badge/demo-@markbattistella/docsify--autoHeaders-1E5749?style=for-the-badge)](https://markbattistella.github.io/docsify-autoHeaders-docs/)
 
 </div>
 
@@ -48,11 +46,11 @@ Assuming you have a working [docsify](https://docsify.js.org/) framework set up,
   <script>
   window.$docsify = {
     autoHeaders: {
-	  separator: String,          // how numbers should be separated
-	  custom:    String,          // if `separator` is set to other then specify own here
-	  levels:    String | Object, // heading levels h[1-6]
-	  scope:     String,          // plugin search scope
-	  debug:     Boolean          // show console.log messages
+      separator: String,          // how numbers should be separated
+      custom:    String,          // if `separator` is set to other then specify own here
+      levels:    String | Object, // heading levels h[1-6]
+      scope:     String,          // plugin search scope
+      debug:     Boolean          // show console.log messages
     }
   };
   </script>
@@ -75,7 +73,7 @@ There are some options available for the `docsify-autoHeaders`:
 | separator | how the numbers are separated: `decimal`, `dash`, `bracket`, or `other` |
 | custom    | if `separator` is set to `other` then you can specify the custom styled separator here |
 | levels    | String: heading levels to target `1-6`                          |
-|           | Object: start and finish for custom range
+|           | Object: start and finish for custom range                       |
 | scope     | the element to narrow it down to. `#main` is the default scope  |
 | debug     | `true` or `false` if you want to see `console.log` info         |
 
@@ -121,14 +119,14 @@ You can also target specific heading levels for the numbering which works well i
 <script>
 window.$docsify = {
   autoHeaders: {
-	separator: 'other',
-	custom:    '--',
-	levels:    {
-	  start:  '2',
-	  finish: '4'
-	}
-	scope:     '#main',
-	debug:     false
+    separator: 'other',
+    custom:    '--',
+    levels:    {
+       start:  '2',
+       finish: '4'
+    },
+    scope:     '#main',
+    debug:     false
   }
 };
 </script>

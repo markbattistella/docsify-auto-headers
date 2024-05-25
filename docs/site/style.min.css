@@ -1,0 +1,187 @@
+/*! (c) Mark Battistella | @markbattistella */
+
+:root {
+	--colour-mono: 0, 0%;
+	--colour-green: 168, 76%;
+	--colour-blue: 145, 63%;
+    --colour-pink: var(--colour-green);
+}
+
+*, :after, :before {
+	box-sizing:border-box
+}
+
+::selection {
+	--mono: 100%;
+	background: hsl( var( --colour-green ), 50% );
+	color: hsl( var( --colour-mono ), var( --mono ) );
+	text-shadow: none;
+	border-width: 0;
+	text-decoration: none;
+	border-color: transparent;
+	border-radius: 0;
+}
+
+
+
+/* body */
+body {
+    --mono: 95%;
+    background: hsl( var( --colour-mono ), var( --mono ) );
+    color: hsl( var( --colour-mono ), calc( 100% - var( --mono ) ) );
+    font-size: 18px;
+}
+
+.sidebar {
+    --mono: 95%;
+    background: hsl( var( --colour-mono ), var( --mono ) ) !important;
+}
+
+.sidebar, .sidebar a {
+    --mono: 95%;
+    color: hsl( var( --colour-mono ), calc( 100% - var( --mono ) ) ) !important;
+}
+
+a {
+    --mono: 95%;
+    color: hsl( var( --colour-mono ), calc( 100% - var( --mono ) ) ) !important;
+}
+
+img {
+    border-radius: 0.2em;
+    margin-bottom: 1em !important
+}
+
+
+/* cover */
+section.cover, section.cover a {
+    color: hsl( var( --colour-mono ), 100% ) !important;
+    border: 0 !important;
+}
+
+section.cover {
+    text-align: center !important;
+}
+
+section.cover.show:before {
+    background: linear-gradient(
+        180deg,
+        hsl( var( --colour-green ), 50% )   0%,
+        hsl( var( --colour-blue ), 50% )    100%
+    );
+}
+
+section.cover .cover-main {
+    max-width: 100%
+}
+
+section.cover p:last-child a:first-child {
+    width: 100% !important;
+    background-color: hsl( var(--colour-mono), 100% ) !important;
+    font-weight: bold;
+    color: hsl( var( --colour-mono ), 0% ) !important;
+}
+
+section.cover p:last-child a:not(:first-child) {
+    text-decoration: none !important;
+    display: inline-block;
+    background-color: hsla( var(--colour-mono), 100%, 0.1 );
+    padding: 0 2em;
+    line-height: 2.5em;
+}
+
+
+
+/* headings */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700 !important;
+    color: hsl( var(--colour-mono), 100% ) !important;
+}
+
+article#main h1,
+article#main h2,
+article#main h3,
+article#main h4,
+article#main h5,
+article#main h6 {
+    border: none;
+    padding: 0;
+    margin: 1em 0;
+    text-transform: uppercase;
+}
+
+
+article#main h4,
+article#main h5,
+article#main h6 {
+    font-size: var(--heading-h4-font-size);
+}
+
+/* buttons */
+.demo-buttons a {
+    text-decoration: none !important;
+    display: inline-block;
+    background-color: hsla( var(--colour-mono), 100%, 0.1 );
+    padding: 0 2em;
+    line-height: 2.5em;
+}
+
+/* body */
+article#main {
+    padding-bottom: 5em
+}
+
+.markdown-section ol ol,
+.markdown-section ul ol {
+    list-style-type: lower-alpha
+}
+
+.markdown-section ol ol ol,
+.markdown-section ul ol ol {
+    list-style-type: lower-roman
+}
+
+.markdown-section code {
+    --mono: 90%;
+    background: hsla( var( --colour-mono ), calc( 100% - var( --mono ) ), 0.1) !important;
+    color: hsl( var( --colour-mono ), calc( 100% - var( --mono ) ) ) !important;
+}
+
+.markdown-section p.tip code {
+    --mono: 90%;
+}
+
+.markdown-section table {
+    --mono: 95%;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    border-radius: 1em !important;
+}
+
+.markdown-section table tr {
+    background: none !important;
+}
+
+.markdown-section table th,
+.markdown-section table td {
+    --mono: 90%;
+    color: hsl( var( --colour-mono ), calc( 100% - var( --mono ) ) ) !important;
+}
+
+:not(pre)>code[class*=lang-], pre[data-lang] {
+    background: none;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    body,
+    a,
+    .sidebar,
+    .sidebar a,
+    .markdown-section code,
+    .markdown-section table,
+    .markdown-section table th,
+    .markdown-section table td 
+        { --mono: 10%; }
+}

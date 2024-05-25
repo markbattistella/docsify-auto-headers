@@ -1,2 +1,7 @@
-# ignore these please
+.vscode
+.markdownlint.json
 .DS_Store
+*babel.js
+*.min.js
+.gitattributes
+node_modules
