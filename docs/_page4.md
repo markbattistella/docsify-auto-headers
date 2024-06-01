@@ -1,8 +1,8 @@
-<!-- autoHeader:11.22.33.44.55.66 -->
+<!-- autoHeader:Z-Y -->
 
-# Multi-numbers
+# Alpha-headings
 
-This page has `<!-- autoHeader:11.22.33.44.55.66 -->`
+This page has `<!-- autoHeader:z.y -->`
 
 ## Heading level 2
 

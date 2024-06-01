@@ -21,34 +21,36 @@
   window.$docsify = {
     name: 'auto-headers',
     repo: 'https://github.com/markbattistella/docsify-auto-headers',
-    coverpage: 'site/cover.md',
+    // coverpage: 'site/cover.md',
     homepage: 'https://raw.githubusercontent.com/markbattistella/docsify-auto-headers/main/README.md',
+
     loadSidebar: false,
     hideSidebar: false,
+    
     auto2top: true,
     notFoundPage: 'site/404.md',
     relativePath: true,
     themeColor: 'hsl( var(--colour-orange), 50%)',
 
-    autoHeaders: {
-      separator:  '.',
-			levels:    {
-	  		start:  '1',
-	  		finish: '6'
-			},
-			scope:     '#main',
-      debug: true
-    },
+    // autoHeaders: {
+    //   separator:  '.',
+		// 	levels:    {
+	  // 		start:  '1',
+	  // 		finish: '6'
+		// 	},
+		// 	scope:     '#main',
+    //   debug: true
+    // },
 
-    autoFooter: {
-      name:        'Mark Battistella',
-      url:         'https://github.com/markbattistella',
-      copyYear:    '2010',
-      policy:      'site/policy',
-      terms:       'site/terms',
-      cookies:     'site/cookies',
-      customStyle: 'body'
-    }
+    // autoFooter: {
+    //   name:        'Mark Battistella',
+    //   url:         'https://github.com/markbattistella',
+    //   copyYear:    '2010',
+    //   policy:      'site/policy',
+    //   terms:       'site/terms',
+    //   cookies:     'site/cookies',
+    //   customStyle: 'body'
+    // }
   }
   </script>
 
@@ -56,9 +58,10 @@
   <script src="https://cdn.jsdelivr.net/npm/docsify@latest"></script>
 
   <!-- docsify-sidebar -->
-  <script src="https://unpkg.com/@markbattistella/docsify-sidebarfooter@latest"></script>
+  <!-- <script src="https://unpkg.com/@markbattistella/docsify-sidebarfooter@latest"></script> -->
 
   <!-- docsify-autoHeaders -->
-	<script src="https://unpkg.com/@markbattistella/docsify-autoheaders@latest"></script>
+	<!-- <script src="https://unpkg.com/@markbattistella/docsify-autoheaders@latest"></script> -->
+  <script src="docsify-auto-headers.js"></script>
 </body>
 </html>

@@ -1,39 +1,26 @@
-@autoHeader:1
+@autoHeader:12-1-5-8-1-10
 
-# Single number
-
-This page has `@autoHeader:1`
-
-## Heading level 2
-
-### Heading level 3
-
-#### Heading Level 4 - 1
-
-##### Heading Level 5
-
-###### Heading level 6
-
-## Heading level 2-1
-
-## Heading level 2-2
-
-### Heading level 3-1
-
-### Heading level 3-2
-
-#### Heading Level 4-1
-
-#### Heading Level 4-2
-
-##### Heading Level 5-1
-
-##### Heading Level 5-2
-
-##### Heading Level 5-3
-
-##### Heading Level 5-4
-
-###### Heading level 6-1
-
-###### Heading level 6-2
+# Heading 1-1
+## Heading 2-1
+## Heading 2-2
+### Heading 3-1
+### Heading 3-2
+#### Heading 4-1
+## Heading 2-3
+### Heading 3-2
+#### Heading 4-2
+##### Heading 5-1
+###### Heading 6-1
+###### Heading 6-2
+# Heading 1-2
+## Heading 2-4
+## Heading 2-5
+### Heading 3-3
+### Heading 3-4
+#### Heading 4-3
+## Heading 2-6
+### Heading 3-5
+#### Heading 4-4
+##### Heading 5-2
+###### Heading 6-3
+###### Heading 6-4
