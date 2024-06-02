@@ -3,7 +3,7 @@
     'use strict';
 
     const docsifyAutoHeadersDefaults = {
-        separator: '.',
+        separator: '-',
 
         levels: 6,
         // levels: { start: 2, finish: 3 },
@@ -14,7 +14,7 @@
         debug: true
     };
 
-    const defaultErrors = {
+    const errorMessage = {
         configurationNotSetCorrectly:
             'Config settings not set',
         invalidHeadingLevels:
@@ -34,13 +34,18 @@
         misconfiguredSignifier:
             'The markdown file has the signifier, but it is misconfigured',
         invalidSidebar:
-            'The sidebar parameter needs to be a boolean - true or false'
+            'The sidebar parameter needs to be a boolean - true or false',
+        exitingError:
+            'An error has been found in your configuration, or setup. Please review your code and markdown data'
+    };
+
+    const showErrorMessage = (shouldShow, message) => {
+        if (shouldShow) { throw new Error(message); }
     };
 
     const setDefaultOptions = (options) => {
         if (!options.separator || options.levels === undefined) {
-            console.info(defaultErrors.configurationNotSetCorrectly);
-            throw new Error(defaultErrors.configurationNotSetCorrectly);
+            showErrorMessage(options.debug, errorMessage.configurationNotSetCorrectly);
         }
 
         const separatorMap = {
@@ -59,17 +64,17 @@
         return { separator, levels, sidebar, debug };
     };
 
-    const getUsingSidebar = (input) => {
+    const validateAndReturnSidebar = (input) => {
         if (typeof input !== 'boolean') {
-            throw new Error(defaultErrors.invalidSidebar);
+            showErrorMessage(options.debug, errorMessage.invalidSidebar);
         } else {
             return input;
         }
     };
 
-    const getHeadingRange = (input) => {
+    const validateAndGetHeadingRange = (input) => {
         if (typeof input !== 'number' && (typeof input !== 'object' || input === null)) {
-            throw new Error(defaultErrors.invalidHeadingLevels);
+            showErrorMessage(options.debug, errorMessage.invalidHeadingLevels);
         }
 
         const isInRange = (value, min, max) => value >= min && value <= max;
@@ -83,16 +88,16 @@
             ({ start, finish } = input);
 
             if (typeof start !== 'number' || typeof finish !== 'number') {
-                throw new Error(defaultErrors.nonNumericValue);
+                showErrorMessage(options.debug, errorMessage.nonNumericValue);
             }
 
             if (start > finish) {
-                throw new Error(defaultErrors.invalidHeadingLevelOrder);
+                showErrorMessage(options.debug, errorMessage.invalidHeadingLevelOrder);
             }
         }
 
         if (!isInRange(start, 1, 6) || !isInRange(finish, 1, 6)) {
-            throw new Error(defaultErrors.headingLevelRange);
+            showErrorMessage(options.debug, errorMessage.headingLevelRange);
         }
 
         const headings = {};
@@ -112,7 +117,7 @@
         const isAlphabetic = elements.every(isAllAlphabetic);
 
         if (!(isNumeric || isAlphabetic)) {
-            throw new Error(defaultErrors.invalidHeadingLevels);
+            showErrorMessage(options.debug, errorMessage.invalidHeadingLevels);
         }
 
         while (elements.length < 6) {
@@ -130,9 +135,11 @@
     const checkAutoHeader = (markdown) => {
         const autoHeaderPattern = /^(?:@autoHeader:|<!-- autoHeader:)([\d.a-zA-Z\-:,~]+)(?: -->)?/;
         const match = markdown.trim().match(autoHeaderPattern);
-        return match ? match[1] : null;
+        if (!match) {
+            showErrorMessage(options.debug, errorMessage.missingAutoHeaderSignifier);
+        }
+        return match[1];
     };
-
 
     const createCountContextObjects = (levels) => {
         const configEntries = Object.entries(levels);
@@ -152,7 +159,7 @@
         };
     };
 
-    const applyCurrentCountThroughBoundContext = function (headingNode, options) {
+    const applyCurrentCountThroughBoundContext = (headingNode, options) => {
         const { currentCounts, scopedTagNames } = this;
         const headingName = headingNode.tagName.toLowerCase();
         const headingNameList = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
@@ -241,26 +248,30 @@
         const defaultOptions = setDefaultOptions(docsifyAutoHeadersDefaults);
         let options = {
             separator: defaultOptions.separator,
-            levels: getHeadingRange(defaultOptions.levels),
-            sidebar: getUsingSidebar(defaultOptions.scope),
-            debug: defaultOptions.debug
+            levels: validateAndGetHeadingRange(defaultOptions.levels),
+            sidebar: validateAndReturnSidebar(defaultOptions.sidebar),
+            debug: defaultOptions.debug,
+            shouldContinue: false
         };
 
         // MARK: Need to access markdown to extract the signifier data
         hook.beforeEach((markdown, next) => {
+            let cleanedMarkdown;
             try {
                 const headingSignifier = checkAutoHeader(markdown);
                 if (!headingSignifier) {
-                    throw new Error(defaultErrors.missingAutoHeaderSignifier);
+                    options.shouldContinue = false;
+                    showErrorMessage(options.debug, errorMessage.missingAutoHeaderSignifier);
                 }
 
-                const headingRanges = getHeadingRange(defaultOptions.levels);
+                const headingRanges = validateAndGetHeadingRange(defaultOptions.levels);
                 const startingHeadingValues = getStartingValues(
                     headingSignifier,
                     options.separator
                 );
                 if (!startingHeadingValues) {
-                    throw new Error(defaultErrors.misconfiguredSignifier);
+                    options.shouldContinue = false;
+                    showErrorMessage(options.debug, errorMessage.misconfiguredSignifier);
                 }
                 const headingConfiguration = {};
                 for (const key in headingRanges) {
@@ -272,22 +283,24 @@
 
                 // Update the options for use elsewhere
                 options.levels = headingConfiguration;
+                options.shouldContinue = true;
 
-                const cleanedMarkdown = markdown.split('\n').slice(1).join('\n');
-                return cleanedMarkdown;
-
+                cleanedMarkdown = markdown.split('\n').slice(1).join('\n');
             } catch (error) {
+                options.shouldContinue = false;
                 console.warn('Warning: Docsify Auto Headers\n', error.message);
             } finally {
-                next(markdown);
+                next(cleanedMarkdown);
             }
         });
 
         // Conditional setup for hooks
         if (options.sidebar) {
-
-
             hook.beforeEach((markdown, next) => {
+                if (!options.shouldContinue) {
+                    showErrorMessage(options.debug, errorMessage.exitingError);
+                }
+
                 let output;
                 try {
                     output = applyScopedHeadingCounts(
@@ -297,13 +310,18 @@
                         'markdown'
                     );
                 } catch (error) {
-                    console.warn('Warning: Docsify Auto Headers\n', error.message)
+                    console.warn('Warning: Docsify Auto Headers - beforeEach 2\n', error.message);
                 } finally {
                     next(output);
                 }
             });
+
         } else {
             hook.afterEach(function (html, next) {
+                if (!options.shouldContinue) {
+                    showErrorMessage(options.debug, errorMessage.exitingError);
+                }
+
                 let output;
                 try {
                     output = applyScopedHeadingCounts(
@@ -313,7 +331,7 @@
                         'html'
                     );
                 } catch (error) {
-                    console.warn('Warning: Docsify Auto Headers\n', error.message)
+                    console.warn('Warning: Docsify Auto Headers\n', error.message);
                 } finally {
                     next(output);
                 }
