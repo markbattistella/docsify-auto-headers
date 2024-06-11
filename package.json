@@ -1,6 +1,6 @@
 {
   "name": "@markbattistella/docsify-autoheaders",
-  "version": "6.0.0",
+  "version": "5.0.0",
   "description": "Auto header numbering for docsify.js",
   "main": "./dist/docsify-auto-headers.min.js",
   "repository": {
@@ -18,9 +18,9 @@
     "major": "node ./.github/scripts/release.js -major"
   },
   "devDependencies": {
-    "@babel/cli": "^7.24.6",
-    "@babel/core": "^7.24.6",
-    "@babel/preset-env": "^7.24.6",
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
     "docsify-cli": "^4.4.4",
     "jsonfile": "^6.1.0"
   },
