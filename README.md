@@ -10,11 +10,11 @@ This plugin enhances your Docsify documentation by automatically generating numb
 
 | Page link | Description |
 |-|-|
-| ![](https://img.shields.io/badge/page_1--blue?style=for-the-badge) | The `autoHeader` of this page is: `@autoHeader:1`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
-| ![](https://img.shields.io/badge/page_2--blue?style=for-the-badge) | The `autoHeader` of this page is: `<!-- autoHeader:11.22.33.44.55.66 -->`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
-| ![](https://img.shields.io/badge/page_3--blue?style=for-the-badge) | The `autoHeader` of this page is: `@autoHeader:`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
-| ![](https://img.shields.io/badge/page_4--blue?style=for-the-badge) | The `autoHeader` of this page is: `<!-- autoHeader:Z.Y -->`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
-| ![](https://img.shields.io/badge/page_5--blue?style=for-the-badge) | The `autoHeader` of this page is: `<!-- autoHeader:1-2-3 -->`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
+| [![](https://img.shields.io/badge/page_1--blue?style=for-the-badge)](pages/_page1) | The `autoHeader` of this page is: `@autoHeader:1`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
+| [![](https://img.shields.io/badge/page_2--blue?style=for-the-badge)](pages/_page2) | The `autoHeader` of this page is: `<!-- autoHeader:11.22.33.44.55.66 -->`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
+| [![](https://img.shields.io/badge/page_3--blue?style=for-the-badge)](pages/_page3) | The `autoHeader` of this page is: `@autoHeader:`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
+| [![](https://img.shields.io/badge/page_4--blue?style=for-the-badge)](pages/_page4) | The `autoHeader` of this page is: `<!-- autoHeader:Z.Y -->`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
+| [![](https://img.shields.io/badge/page_5--blue?style=for-the-badge)](pages/_page5) | The `autoHeader` of this page is: `<!-- autoHeader:1-2-3 -->`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
 
 ## Installation
 
