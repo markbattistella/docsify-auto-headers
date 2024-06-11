@@ -1,173 +1,98 @@
 <div align="center">
 
-# docsify-auto-headers
-
-![Github2npm](https://github.com/markbattistella/docsify-autoHeaders/workflows/gh2npm/badge.svg?event=registry_package) ![npm (scoped)](https://img.shields.io/npm/v/@markbattistella/docsify-autoheaders) ![GitHub](https://img.shields.io/github/license/markbattistella/docsify-autoheaders) ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@markbattistella/docsify-autoheaders)
-
----
-
-[![](https://img.shields.io/badge/%20-@markbattistella-blue?logo=paypal&style=for-the-badge)](https://www.paypal.me/markbattistella/6AUD)
-[![](https://img.shields.io/badge/%20-buymeacoffee-black?logo=buy-me-a-coffee&style=for-the-badge)](https://www.buymeacoffee.com/markbattistella)
+# docsify.js auto-headers
 
 </div>
 
----
+This plugin enhances your Docsify documentation by automatically generating numbered headers for your markdown files. It allows you to configure the header levels, numbering format, and inclusion in the sidebar. By utilizing this plugin, you can easily manage and navigate through your documentation headers, ensuring consistency and improved readability.
 
-# Auto number headings
+## Demo pages
 
-This plugin is designed to create heading numbers in your pages if you are creating a reference guide.
-
-It stops you from having to manually number the heading, and then have to then trawl through every heading afterwards to change the numbering system again.
-
-It allows you to either have all the headings in one page, or if you split them over many `markdown` documents then specify what the heading number it should be starting at.
+| Page link | Description |
+|-|-|
+| ![](https://img.shields.io/badge/page_1--blue?style=for-the-badge) | The `autoHeader` of this page is: `@autoHeader:1`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
+| ![](https://img.shields.io/badge/page_2--blue?style=for-the-badge) | The `autoHeader` of this page is: `<!-- autoHeader:11.22.33.44.55.66 -->`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
+| ![](https://img.shields.io/badge/page_3--blue?style=for-the-badge) | The `autoHeader` of this page is: `@autoHeader:`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
+| ![](https://img.shields.io/badge/page_4--blue?style=for-the-badge) | The `autoHeader` of this page is: `<!-- autoHeader:Z.Y -->`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
+| ![](https://img.shields.io/badge/page_5--blue?style=for-the-badge) | The `autoHeader` of this page is: `<!-- autoHeader:1-2-3 -->`.<br>Assuming the original configuration is used, the splitter is `.` and the levels are `H1`-`H6`. |
 
 ## Installation
+
+!> Note: There are breaking changes in the configuration from `v4.x` to `v5.x`. Please take the time to read all the documentation before upgrading
 
 ### Update `index.html` file
 
 Assuming you have a working [docsify](https://docsify.js.org/) framework set up, it is easy to use the plugin.
 
-1. Add the following script tag to your `index.html` via either CDN or downloading it and using it locally:
+1. Add one of the following script tags to your `index.html` via either CDN or downloading it and using it locally:
 
     ```html
     <!-- unpkg.com -->
-    <script src="https://unpkg.com/@markbattistella/docsify-autoheaders@latest"></script>
+    <script src="https://unpkg.com/@markbattistella/docsify-auto-headers@latest"></script>
 
     <!-- jsDelivr -->
-    <script src="https://cdn.jsdelivr.net/npm/@markbattistella/docsify-autoheaders@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@markbattistella/docsify-auto-headers@latest"></script>
 
     <!-- locally -->
-    <script src="docsify-autoheaders.min.js"></script>
+    <script src="docsify-auto-headers.min.js"></script>
     ```
 
-1. In docsify setup configure the plugin (see [configuration](#configuration) for setup):
+1. In docsify setup, configure the plugin:
 
-  ```js
-  <script>
-  window.$docsify = {
-    autoHeaders: {
-      separator: String,          // how numbers should be separated
-      custom:    String,          // if `separator` is set to other then specify own here
-      levels:    String | Object, // heading levels h[1-6]
-      scope:     String,          // plugin search scope
-      debug:     Boolean          // show console.log messages
-    }
-  };
-  </script>
-  ```
+    ```js
+    <script>
+    window.$docsify = {
+      autoHeaders: {
 
-### npm install
+        // Separator for header numbering (e.g., '.', '-', ')')
+        separator: '.',
 
-Or if you're using `npm` to manage your dependencies:
+        // Boolean indicating if headers should be added to the sidebar
+        sidebar: false,
 
-```sh
-npm i @markbattistella/docsify-autoheaders
-```
+        // Number of header levels to include (1 to 6) or an object with start and finish properties
+        levels: 6,
+        // levels: { start: 1, finish: 6 }
 
-### Configuration
+        // Boolean to enable or disable debug messages
+        debug: false
+      }
+   };
+   </script>
+   ```
 
-There are some options available for the `docsify-autoHeaders`:
+## Configuration
 
-| setting   | options                                                         |
-|-----------|-----------------------------------------------------------------|
-| separator | how the numbers are separated: `decimal`, `dash`, `bracket`, or `other` |
-| custom    | if `separator` is set to `other` then you can specify the custom styled separator here |
-| levels    | String: heading levels to target `1-6`                          |
-|           | Object: start and finish for custom range                       |
-| scope     | the element to narrow it down to. `#main` is the default scope  |
-| debug     | `true` or `false` if you want to see `console.log` info         |
+There are several options available for the docsify-auto-headers plugin:
 
-### Usage
+| Setting     | Type    | Options                             |
+|-------------|---------|-------------------------------------|
+| `separator` | String  | e.g., `.`, `-`, `)`                 |
+| `sidebar`   | Boolean | `true` or `false`                   |
+| `levels`    | Number  | `1` to `6`                          |
+|             | Object  | `{ start: Number, finish: Number }` |
+| `debug`     | Boolean | `true` or `false`                   |
 
-At the top of your file add the following snippet:
+## Usage
 
-```md
-@autoHeader:#
-```
+The plugin can be configured to apply scoped heading counts in either the sidebar or the main content, depending on your setup.
 
-At the end of the identifier `(marked with #)`, add the starting heading number. If you don't have a valid entry then it won't auto number.
+### Sidebar
 
-It accepts only numbers.
+If the `sidebar` option is enabled, the headers will be included in the sidebar and processed before rendering the markdown.
 
-You can have a starting header at `0` using:
+### Main Content
 
-```md
-@autoHeader:0
-```
-
-## Customising individual numbers
-
-You can also manually set the starting number of each of the levels by using the following format:
-
-```md
-@autoheaders:3.5.6.6.1.12
-
-##### New heading
-```
-
-Respectively starting the first level 6 heading (H6) at:
-
-```md
-3.5.6.6.2.1 New heading
-```
-
-## Start and finish range
-
-You can also target specific heading levels for the numbering which works well if you want to skip H1.
-
-```js
-<script>
-window.$docsify = {
-  autoHeaders: {
-    separator: 'other',
-    custom:    '--',
-    levels:    {
-       start:  '2',
-       finish: '4'
-    },
-    scope:     '#main',
-    debug:     false
-  }
-};
-</script>
-```
-
-```md
-@autoheaders:1.2.3.4.5.6
-
-# Level 1 heading
-
-## Level 2 heading
-
-### Level 3 heading
-```
-
-```md
-Level 1 heading
-
-1-- Level 2 heading
-
-1--2-- Level 3 heading
-```
-
-!> **Note:** though it skips H1, the numbering starts at the first integer from the `@autoheaders:1.2.3.4.5.6` data. The above example should be read as `@autoheaders:1.2.3`
+If the `sidebar` option is disabled, the headers will be processed and applied directly to the HTML after rendering.
 
 ## Contributing
 
-1. Clone the repo:
+1. Clone the repo:<br>`git clone https://github.com/markbattistella/docsify-auto-headers.git`
 
-    `git clone https://github.com/markbattistella/docsify-autoHeaders.git`
+1. Create your feature branch:<br>`git checkout -b my-feature`
 
-1. Create your feature branch:
+1. Commit your changes:<br>`git commit -am 'Add some feature'`
 
-    `git checkout -b my-feature`
-
-1. Commit your changes:
-
-    `git commit -am 'Add some feature'`
-
-1. `Push` to the branch:
-
-    `git push origin my-new-feature`
+1. `Push` to the branch:<br>`git push origin my-new-feature`
 
 1. Submit the `pull` request
