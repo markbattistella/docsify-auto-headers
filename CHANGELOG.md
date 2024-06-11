@@ -1,4 +1,10 @@
 
+## 5.0.1 - Tue Jun 11 2024
+
+### Fixed
+
+- Documentation fixes.
+
 ## 5.0.0 - Tue Jun 11 2024
 
 ### Breaking Changes

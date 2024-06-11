@@ -1,4 +1,4 @@
-/*! docsify-auto-headers 5.0.0 | (c) Mark Battistella */
+/*! docsify-auto-headers 5.0.1 | (c) Mark Battistella */
 ; (() => {
 
   'use strict';
