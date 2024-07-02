@@ -28,13 +28,13 @@ Assuming you have a working [docsify](https://docsify.js.org/) framework set up,
 
     ```html
     <!-- unpkg.com -->
-    <script src="https://unpkg.com/@markbattistella/docsify-auto-headers@latest"></script>
+    <script src="https://unpkg.com/@markbattistella/docsify-autoheaders@latest"></script>
 
     <!-- jsDelivr -->
-    <script src="https://cdn.jsdelivr.net/npm/@markbattistella/docsify-auto-headers@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@markbattistella/docsify-autoheaders@latest"></script>
 
     <!-- locally -->
-    <script src="docsify-auto-headers.min.js"></script>
+    <script src="docsify-autoheaders.min.js"></script>
     ```
 
 1. In docsify setup, configure the plugin:
