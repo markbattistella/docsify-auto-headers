@@ -4,7 +4,7 @@
 
 </div>
 
-This plugin enhances your Docsify documentation by automatically generating numbered headers for your markdown files. It allows you to configure the header levels, numbering format, and inclusion in the sidebar. By utilizing this plugin, you can easily manage and navigate through your documentation headers, ensuring consistency and improved readability.
+This plugin enhances your Docsify documentation by automatically generating numbered headers for your markdown files. It allows you to configure the header levels, numbering format, and inclusion in the sidebar. By utilising this plugin, you can easily manage and navigate through your documentation headers, ensuring consistency and improved readability.
 
 ## Demo pages
 
@@ -76,6 +76,20 @@ There are several options available for the docsify-auto-headers plugin:
 ## Usage
 
 The plugin can be configured to apply scoped heading counts in either the sidebar or the main content, depending on your setup.
+
+### Adding the signifier
+
+When you want to use the heading numbering on a markdown file you can add either of the following signifiers to the **first line** of the document:
+
+```md
+@autoHeader:
+```
+
+```md
+<!-- autoHeader: -->
+```
+
+After the colon (`:`) you can add in the number that will begin for heading level 1 (`H1`).
 
 ### Sidebar
 
