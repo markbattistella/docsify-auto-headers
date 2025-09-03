@@ -55,3 +55,10 @@ HEADING 5
 HEADING 6
 HEADING 6
 ```
+
+<details>
+<summary><strong>See the original markdown data for this page</strong></summary>
+
+[filename](_page3.md ':include :type=code')
+
+</details>

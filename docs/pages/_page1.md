@@ -53,3 +53,10 @@ Expected output:
 1.3.1.1.1.1. HEADING 6
 1.3.1.1.1.2. HEADING 6
 ```
+
+<details>
+<summary><strong>See the original markdown data for this page</strong></summary>
+
+[filename](_page1.md ':include :type=code')
+
+</details>

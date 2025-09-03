@@ -3,3 +3,4 @@
 - [Page 3](/pages/_page3.md)
 - [Page 4](/pages/_page4.md)
 - [Page 5](/pages/_page5.md)
+- [Page 6](/pages/_page6.md)
