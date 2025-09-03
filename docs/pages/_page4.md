@@ -53,3 +53,10 @@ Z.AA.A.A.A. HEADING 5
 Z.AA.A.A.A.A. HEADING 6
 Z.AA.A.A.A.B. HEADING 6
 ```
+
+<details>
+<summary><strong>See the original markdown data for this page</strong></summary>
+
+[filename](_page4.md ':include :type=code')
+
+</details>

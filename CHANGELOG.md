@@ -1,11 +1,14 @@
+## 5.1.0 - 2025-09-04
 
-## 5.0.1 - Tue Jun 11 2024
+- If you are using Front Matter you can use `autoHeader: xx` in there instead of needing the signifier to be the first line
+
+## 5.0.1 - 2024-06-11
 
 ### Fixed
 
 - Documentation fixes.
 
-## 5.0.0 - Tue Jun 11 2024
+## 5.0.0 - 2024-06-11
 
 ### Breaking Changes
 
@@ -15,4 +18,4 @@
 - Allows numbering in sidebar and main body
 - Better handling of debugging
 - Numbering can use letters and not just numbers
-- Many more fatures and cleanups
+- Many more features and cleanups

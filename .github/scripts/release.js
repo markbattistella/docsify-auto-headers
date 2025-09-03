@@ -54,7 +54,7 @@ fs.writeFileSync(changelogPath, changelogContent, 'utf8');
 console.log('Changelog generated successfully.');
 
 function generateChangelog(version, incrementType) {
-    const currentDate = new Date().toDateString();
+    const currentDate = new Date().toISOString().split('T')[0]; // "2025-09-04"
     const changeDescription = getChangeDescription(incrementType);
 
     // Read the existing changelog content if it exists
